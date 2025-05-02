@@ -12,4 +12,21 @@ app.post("/user", async (req, res) => {
         res.status(500).json({ "message": error.message });
     }
 })
+app.get("/user", async(req, res) => {
+    try {
+        const users = await User.find();
+        res.status(201).json(users);
+    } catch (error) {
+        res.status(500).json(error);
+    }
+})
+app.put("/user/:email",async(req,res)=>{
+    try {
+        await User.findOneAndUpdate({"email":req.params.email},req.body);
+        res.status(200).json({ "message": "successfull" });
+    } catch (error) {
+        res.status(500).json({ "message": error.message });
+    }
+})
+
 app.listen(9800, () => console.log(`Server is running.`))
