@@ -39,4 +39,4 @@ app.delete("/user/:email",async(req,res)=>{
     }
 })
 
-app.listen(9800, () => console.log(`Server is running.`))
+app.listen(9800, () => console.log(`Server is running at https://localhost:9800`));
