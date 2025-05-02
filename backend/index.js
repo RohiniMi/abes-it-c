@@ -22,7 +22,17 @@ app.get("/user", async(req, res) => {
 })
 app.put("/user/:email",async(req,res)=>{
     try {
-        await User.findOneAndUpdate({"email":req.params.email},req.body);
+        const user = await User.findOneAndUpdate({"email":req.params.email},req.body);
+        if(!user) res.status(500).json({ "message": "user not exist" });
+        res.status(200).json({ "message": "successfull" });
+    } catch (error) {
+        res.status(500).json({ "message": error.message });
+    }
+})
+app.delete("/user/:email",async(req,res)=>{
+    try {
+        const user = await User.findOneAndDelete({"email":req.params.email});
+        if(!user) res.status(500).json({ "message": "user not exist" });
         res.status(200).json({ "message": "successfull" });
     } catch (error) {
         res.status(500).json({ "message": error.message });
